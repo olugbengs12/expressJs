@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/olugbengs12/expressJs#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "joi": "^13.1.0"
   }
 }
