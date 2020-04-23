@@ -28,7 +28,7 @@ app.get("/api/courses/:id", (req, res) => {
 app.post("/api/courses/", (req, res) => {
   const { error } = validateCourse(req.body); //result.error..obj destructing
   if (error) {
-    res.status(400).send(result.error.details[0].message);
+    res.status(400).send(error.details[0].message);
     return;
   }
   const course = {
@@ -57,5 +57,16 @@ function validateCourse(course) {
   };
   return Joi.validate(course, schema);
 }
+
+app.delete("/api/courses/:id", (req, res) => {
+  const course = courses.find(c => c.id === parseInt(req.params.id));
+  if (!course) res.status(404).send("Course not Found");
+
+  //Delete
+  const index = courses.indexOf(course);
+  courses.splice(index, 1);
+
+  res.send(course);
+});
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
